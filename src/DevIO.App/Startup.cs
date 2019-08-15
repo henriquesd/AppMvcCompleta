@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DevIO.Data.Context;
 using DevIO.Business.Interfaces;
 using DevIO.Data.Repository;
+using AutoMapper;
 
 namespace DevIO.App
 {
@@ -42,6 +43,10 @@ namespace DevIO.App
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Quando passa o Startup aqui, ele diz para procurar qualquer classe dentro do assembly DevIO.App, que possua o
+            // Profile como herança (porque é uma classe de configuração de perfil de mapeamento do AutoMapper); e na classe resolve os mapeamentos criados;
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

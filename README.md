@@ -3,14 +3,14 @@ Aplicação MVC em .NET CORE 2.2
 
 ## No projeto DevIO.Data:
 
-## Install
+### Install
 ```
 Install-Package Microsoft.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Relational
 ```
 
 
-### Comandos para criar migrations:
+### Comando para criar migrations:
 PowerShell:
 ```
 Add-Migration Initial -Verbose -Context MeuDbContext
@@ -49,4 +49,11 @@ Console:
 ```
 dotnet ef database update --startup-project ..\DevIO.App\ --context ApplicationDbContext
 dotnet ef database update --startup-project ..\DevIO.App\ --context MeuDbContext
+```
+
+## No projeto DevIO.App:
+
+### Install
+```
+Install-Package autoMapper.extensions.microsoft.dependencyInjection
 ```
