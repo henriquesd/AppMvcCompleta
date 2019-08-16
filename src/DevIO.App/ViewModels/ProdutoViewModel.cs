@@ -24,6 +24,9 @@ namespace DevIO.App.ViewModels
         [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string Descricao { get; set; }
 
+        // O ImagemUpload não está como Required porque quando for editar um produto, não é obrigado a subir uma nova imagem;
+        // Na tela de criação é atribuído manualmente um javascript para validação no campo (que é justamente o que seria feito caso tivesse o atributo de Required);
+        [DisplayName("Imagem do Produto")]
         public IFormFile ImagemUpload { get; set; }
 
         public string Imagem { get; set; }
