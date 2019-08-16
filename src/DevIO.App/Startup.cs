@@ -51,9 +51,9 @@ namespace DevIO.App
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<MeuDbContext>();
-            services.AddSingleton<IProdutoRepository, ProdutoRepository>();
-            services.AddSingleton<IFornecedorRepository, FornecedorRepository>();
-            services.AddSingleton<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
