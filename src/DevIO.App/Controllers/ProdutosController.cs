@@ -117,7 +117,7 @@ namespace DevIO.App.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var produto = ObterProduto(id);
+            var produto = await ObterProduto(id);
 
             if (produto == null)
             {
@@ -131,7 +131,7 @@ namespace DevIO.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var produto = ObterProduto(id);
+            var produto = await ObterProduto(id);
 
             if (produto == null)
             {
