@@ -9,6 +9,8 @@ using DevIO.Business.Models;
 
 namespace DevIO.App.Controllers
 {
+    // para forcar um prefixo para todos;
+    //[Route("admin-fornecedores")]
     public class FornecedoresController : BaseController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
@@ -24,12 +26,17 @@ namespace DevIO.App.Controllers
             _enderecoRepository = enderecoRepository;
         }
 
+        //[Route("lista-de-fornecedores")]
+        [Route("fornecedores/lista-de-fornecedores")]
         public async Task<IActionResult> Index()
         {
             // aqui ele vai retornar uma lista de Fornecedor, que será convertido para uma lista de FornecedorViewModel;
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
+        // uma vantagem de especificar o tipo, é para não receber o que estiver fora do padrão estabelecido (que no caso é Guid), também irá dificultar
+        // para quem quiser fazer uma exploração através de injeção (sql injection), e fazer uma exploração de falhas na sua aplicação;
+        [Route("dados-do-fornecedor/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -41,12 +48,15 @@ namespace DevIO.App.Controllers
 
             return View(fornecedorViewModel);
         }
-
+        
+        [Route("novo-fornecedor")]
         public IActionResult Create()
         {
             return View();
         }
-
+        
+        // Tem que repetir sempre no método Get e Post o mesmo padrão;
+        [Route("novo-fornecedor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FornecedorViewModel fornecedorViewModel)
@@ -60,6 +70,7 @@ namespace DevIO.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("editar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorProdutosEndereco(id);
@@ -72,6 +83,7 @@ namespace DevIO.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Route("editar-fornecedor/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
@@ -86,6 +98,7 @@ namespace DevIO.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("excluir-fornecedor/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
@@ -98,6 +111,7 @@ namespace DevIO.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Route("excluir-fornecedor/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -111,6 +125,7 @@ namespace DevIO.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("obter-endereco-fornecedor/{id:guid}")]
         public async Task<IActionResult> ObterEndereco(Guid id)
         {
             var fornecedor = await ObterFornecedorEndereco(id);
@@ -123,6 +138,7 @@ namespace DevIO.App.Controllers
             return PartialView("_DetalhesEndereco", fornecedor);
         }
 
+        [Route("atualizar-endereco-fornecedor/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id)
         {
             var fornecedor = await ObterFornecedorEndereco(id);
@@ -135,6 +151,7 @@ namespace DevIO.App.Controllers
             return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedor.Endereco });
         }
 
+        [Route("atualizar-endereco-fornecedor/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
