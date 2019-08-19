@@ -21,6 +21,10 @@ namespace DevIO.App.Configurations
                 o.ModelBindingMessageProvider.SetValueIsInvalidAccessor(x => "O valor preenchido é inválido para este campo.");
                 o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(x => "O campo deve ser numérico.");
                 o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "Este campo precisa ser preenchido.");
+
+                // aqui ele está validando automaticamente este atributo (ValidateAntiForgeryToken - este atributo exige validar o token que você está recebendo da view via post)
+                // em todos os requests que recebem dados (ele irá fazer essa validação automática);
+                o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             })
                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
