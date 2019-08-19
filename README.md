@@ -57,3 +57,12 @@ dotnet ef database update --startup-project ..\DevIO.App\ --context MeuDbContext
 ```
 Install-Package autoMapper.extensions.microsoft.dependencyInjection
 ```
+
+
+## No projeto DevIO.Business:
+
+### Install
+Biblioteca para validação de entidades e de classes em geral, para .NET.
+```
+Install-Package FluentValidation
+```
